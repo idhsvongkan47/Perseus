@@ -1,8 +1,5 @@
 --[[
-	// Overlay Library 
-	// Made By: Severitysvc
-	// Version: 1.0.5
-	// State: Beta
+	// Perseus Development
 ]]
 
 --// Modules
