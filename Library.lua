@@ -1,5 +1,7 @@
 --[[
 	// Perseus Development
+    // Made by: SeveritySvc
+    // Maintained by: Perseus Development
 ]]
 
 --// Modules
