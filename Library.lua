@@ -1,7 +1,7 @@
 --[[
-	// Perseus Development
-    // Made by: SeveritySvc
-    // Maintained by: Perseus Development
+	// Overlay Library 
+	// Made By: Severitysvc
+	//  Maintained by : Perseus Development
 ]]
 
 --// Modules
@@ -3205,7 +3205,7 @@ function Library:Window(Data)
 				table.sort(Values)
 			end
 
-			function Methods:Remove(String)
+						function Methods:Remove(String)
 				Signal:Assert(
 					String and type(String) == "string",
 					"Argument is not valid and/or is not a string",
@@ -3218,6 +3218,32 @@ function Library:Window(Data)
 					table.remove(Values, Index)
 					table.sort(Values)
 				end
+			end
+
+			function Methods:SetValues(NewValues)
+				Values = NewValues
+			end
+
+			function Methods:Refresh(NewValues)
+				if NewValues then
+					Values = NewValues
+				end
+
+				if Multi then
+					local Filtered = {}
+					for _, v in ipairs(Selected) do
+						if table.find(Values, v) then
+							table.insert(Filtered, v)
+						end
+					end
+					Selected = Filtered
+				else
+					if not table.find(Values, Selected) then
+						Selected = nil
+					end
+				end
+
+				ContextData.ContextCallback:Fire()
 			end
 
 			return Methods, Body
