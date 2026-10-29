@@ -5911,7 +5911,7 @@ function Library:Window(Data)
 
 	Library:SetTheme(Data and Data.Theme or "Dark")
 
-return Controller, Body
+	return Controller, Body
 end
 
 local OriginalWindow = Library.Window
@@ -5966,11 +5966,13 @@ function Library:Window(Data)
 		return Result
 	end
 
+	local ConfigWrappedFunctions = setmetatable({}, { __mode = "k" })
+
 	local function RegisterElements(Elements)
 		local ElementNames = { "Toggle", "Slider", "Dropdown", "Keybind", "ColorPicker", "Textbox" }
 		for _, ElementName in ipairs(ElementNames) do
 			local Original = Elements[ElementName]
-			if type(Original) == "function" and not Original._ConfigWrapped then
+			if type(Original) == "function" and not ConfigWrappedFunctions[Original] then
 				local Wrapped = function(selfElements, DataValue)
 					local ElementData = CopyTable(DataValue)
 					local Flag = ElementData.Flag or ElementData.FlagName or ElementData.ConfigFlag
@@ -6020,7 +6022,7 @@ function Library:Window(Data)
 				end
 				return Control, ElementBody
 			end
-			Wrapped._ConfigWrapped = true
+			ConfigWrappedFunctions[Wrapped] = true
 			Elements[ElementName] = Wrapped
 		end
 		end
