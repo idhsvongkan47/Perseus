@@ -5911,7 +5911,7 @@ function Library:Window(Data)
 
 	Library:SetTheme(Data and Data.Theme or "Dark")
 
-\treturn Controller, Body
+return Controller, Body
 end
 
 local OriginalWindow = Library.Window
